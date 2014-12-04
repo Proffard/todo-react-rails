@@ -41,9 +41,8 @@
               placeholder: 'Task...'
               id: 'item_name' }
             div {
-              className: 'ui teal left labeled icon button',
+              className: 'ui teal left labeled button',
               onClick: @handle_submit},
-              i {className: 'add square icon'}
               'Add'
 
   handle_submit: (e) ->
