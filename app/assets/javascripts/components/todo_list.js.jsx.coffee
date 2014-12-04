@@ -23,11 +23,15 @@
             id: 'search'
             placeholder: 'Search...' }
           i {className: 'search icon'}
-      for item in items
-        Item
-          item: item
-          key: item.id
-          handle_delete: @handle_delete
+      if items.length > 0
+        for item in items
+          Item
+            item: item
+            key: item.id
+            handle_delete: @handle_delete
+      else
+        div {className: 'ui attached segment'},
+          "Nothing..."
       div {className: "ui botoom attached segment"},
         form { onSubmit: @handle_submit},
           div {className: "ui action fluid input"},

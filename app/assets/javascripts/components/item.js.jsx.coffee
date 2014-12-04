@@ -10,7 +10,7 @@
     div {className: 'ui attached segment'},
       div {className: "ui ten columns grid" },
         div {className: "left floated nine wide column" },
-          div {className: 'ui huge checkbox input'},
+          div {className: 'ui big checkbox input'},
             input {
               onChange: @handle_change,
               type: 'checkbox',
