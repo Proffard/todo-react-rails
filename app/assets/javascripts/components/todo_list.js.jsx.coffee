@@ -1,6 +1,5 @@
 # @cjsx React.DOM
-
-{div, ul, li, input, form} = React.DOM
+{button,i, div, ul, li, input, form} = React.DOM
 
 @TodoList = React.createClass
   getInitialState: ->
@@ -16,37 +15,51 @@
         item.name.trim().toLowerCase().match(search_string)
 
     div {},
-      input {
-        onChange: @handle_search
-        value: @state.search
-        id: 'search'
-        placeholder: 'Search...'
-      }
-      ul {},
-        for item in items
-          Item
-            item: item
-            key: item.id
-      form { onSubmit: @handle_submit },
-        input {
-          type: 'text'
-          name: 'item[name]'
-          id: 'item_name'
-        }
-        input {
-          type: 'submit'
-          value: 'add!'
-        }
+      div {className: "ui top attached segment"},
+        div {className: "ui icon fluid input"},
+          input {
+            onChange: @handle_search
+            value: @state.search
+            id: 'search'
+            placeholder: 'Search...' }
+          i {className: 'search icon'}
+      for item in items
+        Item
+          item: item
+          key: item.id
+          handle_delete: @handle_delete
+      div {className: "ui botoom attached segment"},
+        form { onSubmit: @handle_submit},
+          div {className: "ui action fluid input"},
+            input {
+              type: 'text'
+              name: 'item[name]'
+              placeholder: 'Task...'
+              id: 'item_name' }
+            div {
+              className: 'ui teal left labeled icon button',
+              onClick: @handle_submit},
+              i {className: 'add square icon'}
+              'Add'
 
   handle_submit: (e) ->
     e.preventDefault()
     name = $('#item_name').val()
-    $.ajax(
-       url: "/items.json"
-       data: {item: {name: name, done: false}}
-       type: "POST"
-    ).done (item) =>
-      @setState items: (@state.items.concat [item])
+    if name.length > 0
+      $.ajax(
+         url: "/items.json"
+         data: {item: {name: name, done: false}}
+         type: "POST"
+      ).done (item) =>
+        $('#item_name').val('')
+        @setState items: (@state.items.concat [item])
 
   handle_search: (e) ->
     @setState search: e.target.value
+
+  handle_delete: ->
+    $.ajax(
+       url: "/items.json"
+       type: "GET"
+    ).done (items) =>
+      @setState items: items

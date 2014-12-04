@@ -18,6 +18,8 @@ gem 'slim-rails'
 gem 'quiet_assets'
 gem 'react-rails', '~> 1.0.0.pre', git: 'https://github.com/reactjs/react-rails'
 gem 'sprockets-coffee-react'
+gem 'semantic-ui-sass'
+gem 'normalize-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
